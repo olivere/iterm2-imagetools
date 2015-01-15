@@ -13,27 +13,27 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
 var (
-	width               = flag.String("width", "", "width (e.g. 100px, 10%, or auto)")
-	height              = flag.String("height", "", "height (e.g. 100px, 10%, or auto)")
-	size                = flag.String("size", "", "width,height in pixels (e.g. 1024px,768px or 3,3)")
-	preserveAspectRatio = flag.Bool("p", false, "preserve aspect ratio")
+	width  = flag.String("width", "", "width (e.g. 100px, 10%, or auto)")
+	height = flag.String("height", "", "height (e.g. 100px, 10%, or auto)")
+	size   = flag.String("size", "", "width,height in pixels (e.g. 1024px,768px or 3,3)")
 )
 
 func main() {
 	flag.Usage = usage
 	flag.Parse()
 
-	if flag.NArg() == 0 {
-		// Read from stdin
-		if err := display(os.Stdin); err != nil {
+	for _, pattern := range flag.Args() {
+		matches, err := filepath.Glob(pattern)
+		if err != nil {
 			log.Fatal(err)
 		}
-	} else {
-		for _, filename := range flag.Args() {
+
+		for _, filename := range matches {
 			// Skip errors and directories
 			if fi, err := os.Stat(filename); err != nil || fi.IsDir() {
 				continue
@@ -45,23 +45,29 @@ func main() {
 			}
 			defer f.Close()
 
-			if err := display(f); err != nil {
+			if err := display(filename, f); err != nil {
 				log.Fatal(err)
 			}
 		}
 	}
 }
 
-func display(r io.Reader) error {
+func display(filename string, r io.Reader) error {
 	data, err := ioutil.ReadAll(r)
 	if err != nil {
 		return err
 	}
 
+	b64filename := base64.StdEncoding.EncodeToString([]byte(filename))
+
 	width, height := widthAndHeight()
+	if width == "" && height == "" {
+		width = "3"
+		height = "3"
+	}
 
 	fmt.Print("\033]1337;")
-	fmt.Printf("File=inline=1")
+	fmt.Printf("File=inline=1;preserveAspectRatio=1;name='%s'", b64filename)
 	if width != "" || height != "" {
 		if width != "" {
 			fmt.Printf(";width=%s", width)
@@ -70,12 +76,10 @@ func display(r io.Reader) error {
 			fmt.Printf(";height=%s", height)
 		}
 	}
-	if *preserveAspectRatio {
-		fmt.Print("preserveAspectRatio=1")
-	}
 	fmt.Print(":")
 	fmt.Printf("%s", base64.StdEncoding.EncodeToString(data))
-	fmt.Print("\a\n")
+	fmt.Print("\a")
+	fmt.Printf("\033[A%s\n", filename)
 
 	return nil
 }
@@ -98,7 +102,7 @@ func widthAndHeight() (w, h string) {
 }
 
 func usage() {
-	fmt.Fprint(os.Stderr, "usage: imgcat [flags] filename\n")
+	fmt.Fprint(os.Stderr, "usage: imgls [flags] filename\n")
 	flag.PrintDefaults()
 	os.Exit(2)
 }
