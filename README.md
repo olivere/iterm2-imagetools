@@ -5,6 +5,10 @@ This tool implements the iterm2 image support as described
 
 Be sure to install iterm2 nightly.
 
+![imgcat](/img/imgcat.png?raw=true "imgcat")
+
+![imgls](/img/imgls.png?raw=true "imgls")
+
 # License
 
 MIT-LICENSE. See [LICENSE](http://olivere.mit-license.org/)
