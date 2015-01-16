@@ -9,6 +9,20 @@ Be sure to install iterm2 nightly.
 
 ![imgls](/img/imgls.png?raw=true "imgls")
 
+# Installation
+
+To install `imgcat`, type:
+
+```go
+go install github.com/olivere/iterm2-imagetools/cmd/imgcat
+```
+
+To install `imgls`, type:
+
+```go
+go install github.com/olivere/iterm2-imagetools/cmd/imgls
+```
+
 # License
 
 MIT-LICENSE. See [LICENSE](http://olivere.mit-license.org/)
