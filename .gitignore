@@ -19,6 +19,8 @@ _cgo_export.*
 
 _testmain.go
 
+.DS_Store
+
 *.exe
 imgcat
 imgls

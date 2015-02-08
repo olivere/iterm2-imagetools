@@ -7,6 +7,8 @@ Be sure to install iterm2 nightly.
 
 ![imgcat](/img/imgcat.png?raw=true "imgcat")
 
+![gnuplot+imgcat](/img/gnuplot1.png?raw=true "gnuplot")
+
 ![imgls](/img/imgls.png?raw=true "imgls")
 
 # Installation
