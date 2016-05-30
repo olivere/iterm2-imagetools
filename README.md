@@ -16,13 +16,13 @@ Be sure to install iterm2 nightly.
 To install `imgcat`, type:
 
 ```go
-go install github.com/olivere/iterm2-imagetools/cmd/imgcat
+go get -u github.com/olivere/iterm2-imagetools/cmd/imgcat
 ```
 
 To install `imgls`, type:
 
 ```go
-go install github.com/olivere/iterm2-imagetools/cmd/imgls
+go get -u github.com/olivere/iterm2-imagetools/cmd/imgls
 ```
 
 # License
