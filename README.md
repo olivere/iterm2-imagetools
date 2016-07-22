@@ -8,7 +8,7 @@ Be sure to install iterm2 nightly.
 
 ![imgcat](/img/imgcat.png?raw=true "imgcat")
 
-![imgcat](/img/schlaaand.gif?raw=true "imgcat via http")
+![imgcat](/img/imgcat-via-http.png?raw=true "imgcat via http")
 
 ![gnuplot+imgcat](/img/gnuplot1.png?raw=true "gnuplot")
 
