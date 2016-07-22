@@ -12,6 +12,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 )
@@ -34,19 +35,31 @@ func main() {
 		}
 	} else {
 		for _, filename := range flag.Args() {
-			// Skip errors and directories
-			if fi, err := os.Stat(filename); err != nil || fi.IsDir() {
-				continue
-			}
+			if strings.HasPrefix(filename, "http://") || strings.HasPrefix(filename, "https://") {
+				res, err := http.Get(filename)
+				if err != nil {
+					log.Fatal(err)
+				}
+				defer res.Body.Close()
 
-			f, err := os.Open(filename)
-			if err != nil {
-				log.Fatal(err)
-			}
-			defer f.Close()
+				if err := display(res.Body); err != nil {
+					log.Fatal(err)
+				}
+			} else {
+				// Skip errors and directories
+				if fi, err := os.Stat(filename); err != nil || fi.IsDir() {
+					continue
+				}
 
-			if err := display(f); err != nil {
-				log.Fatal(err)
+				f, err := os.Open(filename)
+				if err != nil {
+					log.Fatal(err)
+				}
+				defer f.Close()
+
+				if err := display(f); err != nil {
+					log.Fatal(err)
+				}
 			}
 		}
 	}
