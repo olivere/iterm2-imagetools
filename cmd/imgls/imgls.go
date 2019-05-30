@@ -1,7 +1,7 @@
-// This tool implements the iterm2 image support as described here:
-// http://iterm2.com/images.html
+// This tool implements the iTerm2 image support as described here:
+// https://www.iterm2.com/documentation-images.html
 //
-// Be sure to install iterm2 nightly.
+// Be sure to install a latest version of iTerm2 (e.g. 3.2.0 or later).
 
 package main
 
