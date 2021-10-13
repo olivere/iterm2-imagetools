@@ -8,8 +8,24 @@ before:
     # you may remove this if you don't use vgo
     - go mod tidy
 builds:
--
-  main: ./cmd/unite
+- id: imgs
+  main: ./cmd/imgls
+  binary: imgls
+  goos:
+    - linux
+    - darwin
+    - windows
+  goarch:
+    - 386
+    - amd64
+    - arm
+    - arm64
+  ignore:
+    - goos: darwin
+      goarch: 386
+- id: imgcat
+  main: ./cmd/imgcat
+  binary: imgcat
   goos:
     - linux
     - darwin
