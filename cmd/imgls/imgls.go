@@ -39,16 +39,20 @@ func main() {
 				continue
 			}
 
-			f, err := os.Open(filename)
-			if err != nil {
-				log.Fatal(err)
-			}
-			defer f.Close()
-
-			if err := display(filename, f); err != nil {
-				log.Fatal(err)
-			}
+			displayLocalPicture(filename)
 		}
+	}
+}
+
+func displayLocalPicture(filename string) {
+	f, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	if err := display(filename, f); err != nil {
+		log.Fatal(err)
 	}
 }
 
