@@ -36,32 +36,40 @@ func main() {
 	} else {
 		for _, filename := range flag.Args() {
 			if strings.HasPrefix(filename, "http://") || strings.HasPrefix(filename, "https://") {
-				res, err := http.Get(filename)
-				if err != nil {
-					log.Fatal(err)
-				}
-				defer res.Body.Close()
-
-				if err := display(res.Body); err != nil {
-					log.Fatal(err)
-				}
+				displayNetPicture(filename)
 			} else {
 				// Skip errors and directories
 				if fi, err := os.Stat(filename); err != nil || fi.IsDir() {
 					continue
 				}
 
-				f, err := os.Open(filename)
-				if err != nil {
-					log.Fatal(err)
-				}
-				defer f.Close()
-
-				if err := display(f); err != nil {
-					log.Fatal(err)
-				}
+				displayLocalPicture(filename)
 			}
 		}
+	}
+}
+
+func displayNetPicture(filename string) {
+	res, err := http.Get(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer res.Body.Close()
+
+	if err := display(res.Body); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func displayLocalPicture(filename string) {
+	f, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	if err := display(f); err != nil {
+		log.Fatal(err)
 	}
 }
 
