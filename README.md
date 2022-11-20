@@ -21,13 +21,13 @@ Be sure to
 To install `imgcat`, type:
 
 ```go
-GO111MODULE=on go get -u github.com/olivere/iterm2-imagetools/cmd/imgcat
+GO111MODULE=on go install github.com/olivere/iterm2-imagetools/cmd/imgcat@latest
 ```
 
 To install `imgls`, type:
 
 ```go
-GO111MODULE=on go get -u github.com/olivere/iterm2-imagetools/cmd/imgls
+GO111MODULE=on go install github.com/olivere/iterm2-imagetools/cmd/imgls@latest
 ```
 
 # License
