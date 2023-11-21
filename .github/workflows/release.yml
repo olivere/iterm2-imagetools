@@ -1,9 +1,11 @@
 name: Release
+
 on:
   pull_request:
   push:
     tags:
       - '*'
+
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
