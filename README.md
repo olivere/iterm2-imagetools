@@ -16,21 +16,23 @@ Be sure to
 
 ![imgls](/img/imgls.png?raw=true "imgls")
 
-# Installation
+## Installation
 
-To install `imgcat`, type:
+To install `imgcat`, you should have a recent version of Go (1.21+ at the time of writing this), and type:
 
 ```go
-GO111MODULE=on go get -u github.com/olivere/iterm2-imagetools/cmd/imgcat
+go install github.com/olivere/iterm2-imagetools/cmd/imgcat@latest
 ```
 
 To install `imgls`, type:
 
 ```go
-GO111MODULE=on go get -u github.com/olivere/iterm2-imagetools/cmd/imgls
+go install github.com/olivere/iterm2-imagetools/cmd/imgls@latest
 ```
 
-# License
+The binaries then get installed into the `$GOPATH/bin` directory (or `$HOME/go/bin` if `GOPATH` is not set; see `go help install`), which you can add to your `$PATH`.
+
+## License
 
 MIT-LICENSE. See [LICENSE](http://olivere.mit-license.org/)
 or the LICENSE file provided in the repository for details.
